@@ -7,6 +7,14 @@ def multiple(a, b):
     42
     """
     "*** YOUR CODE HERE ***"
+    def gcd(a,b):
+        c=a%b
+        if c == 0:
+            return b;
+        else:
+            return gcd(b,c)
+    d = gcd(a,b);
+    return a*b//d
 
 def unique_digits(n):
     """Return the number of unique digits in positive integer n
@@ -25,3 +33,11 @@ def unique_digits(n):
     2
     """
     "*** YOUR CODE HERE ***"
+
+    def is_digits(n):
+        while n>=1:
+            yield n%10
+            n = n//10
+    a = [i for i in is_digits(n)]
+    digits = set([i for i in is_digits(n)])
+    return len(digits)
