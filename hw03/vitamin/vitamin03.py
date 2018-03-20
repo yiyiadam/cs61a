@@ -17,8 +17,7 @@ def has_seven(k):
     True
     """
     "*** YOUR CODE HERE ***"
-    temp =  k%10
-    if temp == 7:
+    if  k%10 == 7:
         return True
     elif k//10 > 1:
         return has_seven(k//10)
