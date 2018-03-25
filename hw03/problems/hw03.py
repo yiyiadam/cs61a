@@ -36,6 +36,11 @@ def accumulate(combiner, base, n, term):
     """
     "*** YOUR CODE HERE ***"
 
+    if n == 0:
+        return base
+    else:
+        return combiner(term(n),accumulate(combiner,base,n-1,term))
+
 def summation_using_accumulate(n, term):
     """Returns the sum of term(1) + ... + term(n). The implementation
     uses accumulate.
@@ -50,7 +55,7 @@ def summation_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
-    return _______
+    return accumulate(add,0,n,term)
 
 def product_using_accumulate(n, term):
     """An implementation of product using accumulate.
@@ -65,7 +70,7 @@ def product_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
-    return _______
+    return accumulate(mul,1,n,term)
 
 def filtered_accumulate(combiner, base, pred, n, term):
     """Return the result of combining the terms in a sequence of N terms
@@ -91,7 +96,12 @@ def filtered_accumulate(combiner, base, pred, n, term):
     True
     """
     def combine_if(x, y):
+        if pred(x):
+            return combiner(x,y)
+        else:
+            return y
         "*** YOUR CODE HERE ***"
+        
     return accumulate(combine_if, base, n, term)
 
 def odd(x):
@@ -116,7 +126,13 @@ def repeated(f, n):
     5
     """
     "*** YOUR CODE HERE ***"
-
+    def nf(x):
+        if n> 0 :
+           return compose1(f,repeated(f,n-1))(x)    
+        else:
+            return x
+    return nf
+    
 def compose1(f, g):
     """Return a function h, such that h(x) = f(g(x))."""
     def h(x):
