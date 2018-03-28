@@ -37,8 +37,4 @@ def squares(s):
     []
     """
     "*** YOUR CODE HERE ***"
-    lst = []
-    for i in s:
-        if i//math.sqrt(i) == math.sqrt(i):
-            lst.append(int(math.sqrt(i)))
-    return lst
+    return [int(math.sqrt(i)) for i in s if i//math.sqrt(i) == math.sqrt(i) ]
