@@ -15,9 +15,9 @@ def is_palindrome(n):
     True
     """
     x, y = n, 0
-    f = lambda: _____
+    f = lambda: y*10 + x%10
     while x > 0:
-        x, y = _____, f()
+        x, y = x//10, f()
     return y == n
 
 def skip_mul(n):
@@ -28,6 +28,8 @@ def skip_mul(n):
     >>> skip_mul(8) # 8 * 6 * 4 * 2
     384
     """
+    if n == 1:
+        return 1
     if n == 2:
         return 2
     else:
@@ -44,9 +46,12 @@ def count_up(n):
     5
     """
     def counter(i):
-        "*** YOUR CODE HERE ***"
-    counter(1)
-
+        if i == 1:
+            print(1)
+        else:
+            counter(i-1)
+            print(i)
+    return counter(n)
 def ab_plus_c(a, b, c):
     """Computes a * b + c.
 
