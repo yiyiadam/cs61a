@@ -63,6 +63,15 @@ def ab_plus_c(a, b, c):
     2
     """
     "*** YOUR CODE HERE ***"
+    def sel_mul(m,n):
+        if m == 0:
+            return 0
+        if m == 1:
+            return n
+        else:
+            return n+sel_mul(m-1,n)
+    
+    return sel_mul(a,b)+c
 
 def is_prime(n):
     """Returns True if n is a prime number and False otherwise.
@@ -75,6 +84,16 @@ def is_prime(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    def divid(a):
+        if a == 1:
+            return True
+        if n%a == 0:
+            return False
+        else:
+            return divid(a-1)
+    return divid(n-1)
+    
+        
 
 def interleaved_sum(n, odd_term, even_term):
     """Compute the sum odd_term(1) + even_term(2) + odd_term(3) + ..., up
@@ -85,6 +104,44 @@ def interleaved_sum(n, odd_term, even_term):
     29
     """
     "*** YOUR CODE HERE ***"
+    
+    """ def sum_odd(m):
+        idx = 1
+        sums = 0
+        while idx <= m:
+            sums += odd_term(idx)
+            idx +=2
+        return sums
+    def sum_even(m):
+        idx = 0
+        sums = 0
+        while idx <= m:
+            sums += even_term(idx)
+            idx +=2
+        return sums
+    return sum_even(n) + sum_odd(n)
+    """
+    def switch_term(c_term):
+        if c_term == odd_term:
+            return even_term
+        else:
+            return odd_term
+
+    def current_term(m):
+        if m == 1:
+            return odd_term
+        else:
+            return switch_term(current_term(m-1))
+
+    def sum_all(m):
+        if m == 1:
+            return current_term(1)(1)
+        else:
+            return current_term(m)(m) + sum_all(m-1) 
+
+    return sum_all(n)
+            
+        
 
 def ten_pairs(n):
     """Return the number of ten-pairs within positive integer n.
