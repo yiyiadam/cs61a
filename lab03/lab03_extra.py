@@ -154,3 +154,16 @@ def ten_pairs(n):
     6
     """
     "*** YOUR CODE HERE ***"
+    def counter(n, k):
+        if n == 0:
+            return 0
+        elif n % 10 + k == 10:
+            return 1 + counter(n//10, k)
+        else:
+            return counter(n//10, k)
+    def repeating(n):
+        if n == 0:
+            return 0
+        else:
+            return counter(n // 10, n % 10) + repeating (n // 10)
+    return repeating(n)
