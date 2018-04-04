@@ -333,7 +333,8 @@ def check_win_column(board, max_rows, max_cols, num_connect, col, player):
 
 def check_win(board, max_rows, max_cols, num_connect, row, col, player):
     """Returns True if the given player has any kind of win after placing a
-    piece at (row, col), and False otherwise.
+    piece at (row, col), and Fal
+    se otherwise.
 
     >>> rows, columns, num_connect = 2, 2, 2
     >>> board = create_board(rows, columns)
