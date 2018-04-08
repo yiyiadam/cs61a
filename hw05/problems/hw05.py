@@ -31,6 +31,16 @@ def move_stack(n, start, end):
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
     "*** YOUR CODE HERE ***"
+    """
+    解法的基本思想是递归。假设有A、B、C三个塔，A塔有N块盘，目标是把这些盘全部移到C塔。那么先把A塔顶部的N-1块盘移动到B塔，再把A塔剩下的大盘移到C，最后把B塔的N-1块盘移到C。每次移动多于一块盘时，则再次使用上述算法来移动。
+    """
+    other = (1+2+3)-(start+end) #A is start, C is end, the other is B
+    if n == 1:
+        print_move(start,end) 
+    else:
+        move_stack(n-1,start,other) #move n-1 from A to B
+        print_move(start,end) #move n from A to C
+        move_stack(n-1,other,end)#move n-1 from B to C
 
 def interval(a, b):
     """Construct an interval from a to b."""
@@ -39,10 +49,12 @@ def interval(a, b):
 def lower_bound(x):
     """Return the lower bound of interval x."""
     "*** YOUR CODE HERE ***"
+    return x[0]
 
 def upper_bound(x):
     """Return the upper bound of interval x."""
     "*** YOUR CODE HERE ***"
+    return x[1]
 
 def str_interval(x):
     """Return a string representation of interval x."""
@@ -68,12 +80,18 @@ def sub_interval(x, y):
     """Return the interval that contains the difference between any value in x
     and any value in y."""
     "*** YOUR CODE HERE ***"
+    p1 = lower_bound(x) - upper_bound(y)
+    p2 = lower_bound(x) - upper_bound(y)
+    p3 = upper_bound(x) - lower_bound(y)
+    p4 = upper_bound(x) - lower_bound(y)
+    return [min(p1, p2, p3, p4), max(p1, p2, p3, p4)]
 
 def div_interval(x, y):
     """Return the interval that contains the quotient of any value in x divided by
     any value in y. Division is implemented as the multiplication of x by the
     reciprocal of y."""
     "*** YOUR CODE HERE ***"
+    assert not lower_bound(y) <= 0 <= upper_bound(y)
     reciprocal_y = interval(1/upper_bound(y), 1/lower_bound(y))
     return mul_interval(x, reciprocal_y)
 
@@ -112,6 +130,13 @@ def quadratic(x, a, b, c):
     '0 to 10'
     """
     "*** YOUR CODE HERE ***"
+    m, M, e_p = lower_bound(x), upper_bound(x), -b /(2*a)
+    f = lambda t: a*t*t + b*t + c
+    if e_p < m:
+        e_p = m
+    elif e_p > M:
+        e_p = M
+    return interval(min(f(m), f(M), f(e_p)), max(f(m), f(M), f(e_p)))
 
 def polynomial(x, c):
     """Return the interval that is the range of the polynomial defined by
