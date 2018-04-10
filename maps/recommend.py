@@ -110,6 +110,19 @@ def find_predictor(user, restaurants, feature_fn):
     # BEGIN Question 7
     "*** REPLACE THIS LINE ***"
     b, a, r_squared = 0, 0, 0  # REPLACE THIS LINE WITH YOUR SOLUTION
+    meanx = mean(xs)
+    meany = mean(ys)
+
+    Sxx = sum([(x - meanx)**2 for x in xs])
+    Syy = sum([(y - meany)**2 for y in ys])
+
+    zipedxy = zip(xs,ys)
+    Sxy = sum([(x[0] - meanx)*(x[1] - meany) for x in zipedxy])
+
+    b = Sxy / Sxx
+    a = meany - b * meanx
+    r_squared = (Sxy**2) / (Sxx * Syy )
+
     # END Question 7
 
     def predictor(restaurant):
@@ -130,6 +143,9 @@ def best_predictor(user, restaurants, feature_fns):
     reviewed = user_reviewed_restaurants(user, restaurants)
     # BEGIN Question 8
     "*** REPLACE THIS LINE ***"
+    predictors =  [find_predictor(user,reviewed,feature_fn) for feature_fn in feature_fns]
+
+    return  max(predictors,key = lambda x: x[1])[0]
     # END Question 8
 
 
@@ -142,10 +158,18 @@ def rate_all(user, restaurants, feature_fns):
     restaurants -- A list of restaurants
     feature_fns -- A sequence of feature functions
     """
+    rates = dict.fromkeys([restaurant_name(restaurant) for restaurant in restaurants], 0)
     predictor = best_predictor(user, ALL_RESTAURANTS, feature_fns)
     reviewed = user_reviewed_restaurants(user, restaurants)
     # BEGIN Question 9
     "*** REPLACE THIS LINE ***"
+    for restaurant in restaurants:
+        if restaurant in reviewed:
+            rates[restaurant_name(restaurant)] = user_rating(user,restaurant_name(restaurant))
+        else:
+            rates[restaurant_name(restaurant)] = predictor(restaurant)
+            make_review(restaurant, predictor(restaurant))
+    return rates
     # END Question 9
 
 
@@ -157,6 +181,7 @@ def search(query, restaurants):
     restaurants -- A sequence of restaurants
     """
     # BEGIN Question 10
+    return [restaurant for restaurant in restaurants if restaurant_categories(restaurant) == query]
     "*** REPLACE THIS LINE ***"
     # END Question 10
 
