@@ -181,7 +181,7 @@ def search(query, restaurants):
     restaurants -- A sequence of restaurants
     """
     # BEGIN Question 10
-    return [restaurant for restaurant in restaurants if restaurant_categories(restaurant) == query]
+    return [restaurant for restaurant in restaurants if query in restaurant_categories(restaurant) ]
     "*** REPLACE THIS LINE ***"
     # END Question 10
 
