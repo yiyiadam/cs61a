@@ -1,4 +1,5 @@
 from lab05 import *
+
 ## Optional Questions ##
 # pyTunes (optional)
 def delete(t, target):
@@ -26,7 +27,7 @@ def delete(t, target):
         return []
     else:
         return tree(root(t),[delete(b,target) for b in branches(t) if is_tree(delete(b,target))])
-        
+
 # Shakespeare and Dictionaries
 def build_successors_table(tokens):
     """Return a dictionary: keys are words; values are lists of successors.
@@ -46,8 +47,8 @@ def build_successors_table(tokens):
     prev = '.'
     for word in tokens:
         if prev not in table:
-            "*** YOUR CODE HERE ***"
-        "*** YOUR CODE HERE ***"
+            table[prev] = []
+        table[prev] += [word]
         prev = word
     return table
 
@@ -59,6 +60,8 @@ def construct_sent(word, table):
     result = ' '
     while word not in ['.', '!', '?']:
         "*** YOUR CODE HERE ***"
+        result += word + ' '
+        word = random.choice(table[word])
     return result + word
 
 def shakespeare_tokens(path='shakespeare.txt', url='http://composingprograms.com/shakespeare.txt'):
@@ -72,8 +75,8 @@ def shakespeare_tokens(path='shakespeare.txt', url='http://composingprograms.com
         return shakespeare.read().decode(encoding='ascii').split()
 
 # Uncomment the following two lines
-# tokens = shakespeare_tokens()
-# table = build_successors_table(tokens)
+tokens = shakespeare_tokens()
+table = build_successors_table(tokens)
 
 def random_sent():
     import random
