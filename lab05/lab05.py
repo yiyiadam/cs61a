@@ -1,4 +1,4 @@
-## Lab 5: Mutable Sequences and Trees ##
+#ilstone# Lab 5: Mutable Sequences and Trees ##
 
 # Sequences
 def map(fn, seq):
@@ -8,6 +8,7 @@ def map(fn, seq):
     [1, 4, 9]
     """
     "*** YOUR CODE HERE ***"
+    return  [fn(x) for x in seq]
 
 def filter(pred, seq):
     """Keeps elements in seq only if they satisfy pred.
@@ -16,7 +17,7 @@ def filter(pred, seq):
     [2, 4]
     """
     "*** YOUR CODE HERE ***"
-
+    return [x for x in seq if pred(x)]
 def reduce(combiner, seq):
     """Combines elements in seq using combiner.
 
@@ -28,7 +29,12 @@ def reduce(combiner, seq):
     4
     """
     "*** YOUR CODE HERE ***"
-
+    assert seq !=   [],'seq shall never be empty list'
+    if type(seq) != list:
+        return seq
+    else:
+        return combiner(seq[0],reduce(combiner,seq[1:]))
+ 
 # pyTunes
 def make_pytunes(username):
     """Return a pyTunes tree as shown in the diagram with USERNAME as the value
@@ -47,6 +53,17 @@ def make_pytunes(username):
           sandstorm
     """
     "*** YOUR CODE HERE ***"
+    
+    return tree(username,
+                        [tree('pop',
+                            [tree('justin bieber',
+                                [tree('single',
+                                    [tree('what do you mean?')])]),
+                            tree('2015 pop mashup')]),
+                        tree('trance',
+                            [tree('darude',
+                                [tree('sandstorm')])])])
+
 
 def num_songs(t):
     """Return the number of songs in the pyTunes tree, t.
@@ -56,7 +73,10 @@ def num_songs(t):
     3
     """
     "*** YOUR CODE HERE ***"
-
+    if is_leaf(t):
+        return 1
+    else:
+        return sum([num_songs(tree) for tree in branches(t)])
 def add_song(t, song, category):
     """Returns a new tree with SONG added to CATEGORY. Assume the CATEGORY
     already exists.
@@ -75,6 +95,11 @@ def add_song(t, song, category):
 
     """
     "*** YOUR CODE HERE ***"
+    if root(t) == category:
+        return tree(root(t),[branches(t)[0],tree(song)])
+    else:
+        return tree(root(t),[add_song(branch,song,category) for branch in branches(t)])
+    
 
 # Tree ADT
 def tree(root, branches=[]):
