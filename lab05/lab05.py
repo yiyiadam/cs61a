@@ -96,7 +96,7 @@ def add_song(t, song, category):
     """
     "*** YOUR CODE HERE ***"
     if root(t) == category:
-        return tree(root(t),[branches(t)[0],tree(song)])
+        return tree(root(t),branches(t)+[tree(song)])
     else:
         return tree(root(t),[add_song(branch,song,category) for branch in branches(t)])
     
