@@ -22,7 +22,11 @@ def delete(t, target):
         wedding dress
     """
     "*** YOUR CODE HERE ***"
-
+    if root(t) == target:
+        return []
+    else:
+        return tree(root(t),[delete(b,target) for b in branches(t) if is_tree(delete(b,target))])
+        
 # Shakespeare and Dictionaries
 def build_successors_table(tokens):
     """Return a dictionary: keys are words; values are lists of successors.
