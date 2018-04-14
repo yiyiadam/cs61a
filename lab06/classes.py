@@ -35,7 +35,11 @@ class Player(object):
         destination_place = self.place.get_neighbor(location)
         if destination_place.locked:
             print(destination_place.name, 'is locked! Go look for a key to unlock it')
-        "*** YOUR CODE HERE ***"
+        else:
+            self.place = destination_place
+            print('You are at',self.place.name)
+
+
 
 
     def talk_to(self, person):
@@ -53,8 +57,10 @@ class Player(object):
         """
         if type(person) != str:
             print('Person has to be a string.')
-        "*** YOUR CODE HERE ***"
-
+        elif person in self.place.characters:
+            print(person + ' says: ' + self.place.characters[person].talk())
+        else:
+            print(person + ' is not here.')
 
     def take(self, thing):
         """Take a thing if thing is at player's current place
@@ -79,7 +85,12 @@ class Player(object):
         """
         if type(thing) != str:
             print('Thing should be a string.')
-        "*** YOUR CODE HERE ***"
+        elif thing not in self.place.things:
+            print(thing, 'is not here.')
+        else:
+            print(self.name, 'takes the', thing)
+            self.backpack.append(self.place.take(thing))
+
 
     def check_backpack(self):
         """Print each item with its description and return a list of item names.
@@ -152,6 +163,11 @@ class Player(object):
             if type(item) == Key:
                 key = item
         "*** YOUR CODE HERE ***"
+        if key == None:
+            print(place, "can't be unlocked without a key!")
+        else:
+            place_to_unlock = self.place.get_neighbor(place)
+            key.use(place_to_unlock)
 
 
 class Character(object):
