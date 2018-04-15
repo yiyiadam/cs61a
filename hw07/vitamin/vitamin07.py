@@ -32,4 +32,5 @@ def digits(n):
     while n > 0:
         n, last = n // 10, n % 10
         "*** YOUR CODE HERE ***"
+        s=Link(last,s)
     return s
