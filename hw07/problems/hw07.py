@@ -21,11 +21,38 @@ class Fib():
     def __init__(self):
         self.value = 0
 
-    def next(self):
+    def next(self): #its a recursive calling be carefull 
         "*** YOUR CODE HERE ***"
-
+        #next被连续调用的次数作为迭代器 实际是返回self的次数? 返回新的Fib/返回本身对象 
+        #返回新对象考虑如何传值,返回对象本身要考虑如何迭代
+        newfib = Fib()
+        if self.value == 0:#
+            newfib.value = 1
+            newfib.prev = 0
+        elif self.value ==1 and self.prev == 0:
+            newfib.value = 1
+            newfib.prev = self.value
+        else:
+            newfib.prev = self.value
+            newfib.value = self.value + self.prev
+        return newfib
     def __repr__(self):
         return str(self.value)
+'''
+#this function helps to solve the problem            
+def next(fib):
+    newfib = Fib()
+    if fib.value == 0:#
+       newfib.value = 1
+       newfib.prev = 0
+    elif fib.value ==1 and fib.prev == 0:
+        newfib.value = 1
+        newfib.prev = fib.value
+    else:
+        newfib.prev = fib.value
+        newfib.value = fib.value + fib.prev
+    return newfib
+'''             
 
 class VendingMachine:
     """A vending machine that vends some product for some price.
