@@ -9,6 +9,13 @@ def list_to_link(lst):
     <1 2 3>
     """
     "*** YOUR CODE HERE ***"
+    if lst == []:
+        return Link.empty
+    elif type(lst[0]) != list:
+        return Link(lst[0],list_to_link(lst[1:]))
+    else:
+        return list_to_link(lst[0])
+
 
 # Q3
 def link_to_list(link):
@@ -21,6 +28,12 @@ def link_to_list(link):
     []
     """
     "*** YOUR CODE HERE ***"
+    if link == Link.empty:
+        return []
+    if type(link.first) != Link:
+        return [link.first] + link_to_list(link.rest)
+    else:
+        return link_to_list(link.first) + link_to_list(link.rest)
 
 # Q4
 def remove_all(link , value):
@@ -38,6 +51,16 @@ def remove_all(link , value):
     <0 1>
     """
     "*** YOUR CODE HERE ***"
+    def remove(link , value):
+        
+        if link == Link.empty:
+            return Link.empty
+        elif type(link.first) != Link and link.first == value:
+            return remove(link.rest,value)
+        else:
+            return Link(link.first,remove(link.rest,value))
+ 
+    link.rest = remove(link.rest,value)
 
 # Linked List Class
 class Link:
