@@ -72,14 +72,12 @@ class Frame:
     def define(self, symbol, value):
         """Define Scheme SYMBOL to have VALUE."""
         # BEGIN PROBLEM 3
-        "*** REPLACE THIS LINE ***"
         self.bindings[symbol] = value
         # END PROBLEM 3
 
     def lookup(self, symbol):
         """Return the value bound to SYMBOL. Errors if SYMBOL is not found."""
         # BEGIN PROBLEM 3
-        "*** REPLACE THIS LINE ***"
         if symbol in self.bindings:
             return self.bindings[symbol]
         elif not self.parent is None:
@@ -141,6 +139,13 @@ class PrimitiveProcedure(Procedure):
             args = args.second
         # BEGIN PROBLEM 4
         "*** REPLACE THIS LINE ***"
+        if self.use_env == True:
+            python_args.append(env)
+
+        try:
+            return self.fn(*python_args)
+        except TypeError:
+            raise SchemeError('Passed the wrong number of parapeters')
         # END PROBLEM 4
 
 class UserDefinedProcedure(Procedure):
