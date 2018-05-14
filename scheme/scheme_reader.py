@@ -157,7 +157,6 @@ def read_tail(src):
                 return val
             else:
                 raise EOFError
-    
             # END PROBLEM 2
         else:
             # BEGIN PROBLEM 1
