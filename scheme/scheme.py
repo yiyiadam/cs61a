@@ -209,6 +209,9 @@ def do_define_form(expressions, env):
         check_form(expressions, 2, 2)
         # BEGIN PROBLEM 6
         "*** REPLACE THIS LINE ***"
+        value = scheme_eval(expressions.second.first,env)
+        env.define(target,value)
+        return target
         # END PROBLEM 6
     elif isinstance(target, Pair) and scheme_symbolp(target.first):
         # BEGIN PROBLEM 10
