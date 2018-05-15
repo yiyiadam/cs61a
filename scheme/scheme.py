@@ -31,7 +31,11 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
         return SPECIAL_FORMS[first](rest, env)
     else:
         # BEGIN PROBLEM 5
-        "*** REPLACE THIS LINE ***"
+        "*** Key Point of evaluation ***"
+        operator = scheme_eval(first, env)
+        operands = rest.map(lambda item: scheme_eval(item, env))
+        check_procedure(operator)
+        return scheme_apply(operator, operands, env)
         # END PROBLEM 5
 
 def self_evaluating(expr):
@@ -138,10 +142,8 @@ class PrimitiveProcedure(Procedure):
             python_args.append(args.first)
             args = args.second
         # BEGIN PROBLEM 4
-        "*** REPLACE THIS LINE ***"
         if self.use_env == True:
             python_args.append(env)
-
         try:
             return self.fn(*python_args)
         except TypeError:
