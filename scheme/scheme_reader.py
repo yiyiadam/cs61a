@@ -104,6 +104,8 @@ def scheme_read(src):
     True
     >>> scheme_read(Buffer(tokenize_lines(['(+ 1 2)'])))
     Pair('+', Pair(1, Pair(2, nil)))
+    >>> scheme_read(Buffer(tokenize_lines(["'(+ 1 2)"])))
+    Pair('quote', Pair('+', Pair(1, Pair(2, nil))))
     """
     if src.current() is None:
         raise EOFError
@@ -118,7 +120,7 @@ def scheme_read(src):
         # END PROBLEM 1
     elif val == "'":
         # BEGIN PROBLEM 7B
-        "*** REPLACE THIS LINE ***"
+        return Pair('quote', Pair(scheme_read(src),nil))
         # END PROBLEM 7B
     elif val not in DELIMITERS:
         return val
