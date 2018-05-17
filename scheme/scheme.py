@@ -219,7 +219,12 @@ def do_define_form(expressions, env):
         # END PROBLEM 6
     elif isinstance(target, Pair) and scheme_symbolp(target.first):
         # BEGIN PROBLEM 10
-        "*** REPLACE THIS LINE ***"
+        procename = target.first
+        formals = target.second
+        body = expressions.second
+        lambdap = LambdaProcedure(formals,body,env)
+        env.define(procename,lambdap)
+        return procename
         # END PROBLEM 10
     else:
         bad_target = target.first if isinstance(target, Pair) else target
