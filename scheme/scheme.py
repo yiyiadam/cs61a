@@ -107,7 +107,17 @@ class Frame:
         """
         child = Frame(self) # Create a new child with self as the parent
         # BEGIN PROBLEM 11
-        "*** REPLACE THIS LINE ***"
+        def bind_all(env,formals,vals):
+            if formals == nil and vals == nil:
+                return child
+            elif formals != nil and vals != nil:
+                symbol = formals.first
+                value = vals.first
+                env.define(symbol,value)
+                return bind_all(env,formals.second,vals.second)
+            else:
+                raise SchemeError("formals and vals dont match")
+        bind_all(child,formals,vals)
         # END PROBLEM 11
         return child
 
