@@ -333,10 +333,20 @@ def make_let_frame(bindings, env):
     BINDINGS. The Scheme list BINDINGS must have the form of a proper bindings
     list in a let expression: each item must be a list containing a symbol and a
     Scheme expression."""
+    #print(bindings)
     if not scheme_listp(bindings):
         raise SchemeError('bad bindings list in let form')
     # BEGIN PROBLEM 15
-    "*** REPLACE THIS LINE ***"
+    "*** TO BE Check Again ***"
+    sym_pair, val_pair = nil, nil
+    while bindings is not nil:
+        check_form(bindings.first, 2, 2)
+        sym_pair = Pair(bindings.first.first, sym_pair)
+        val_pair = Pair(scheme_eval(bindings.first.second.first, env), val_pair)
+        bindings = bindings.second
+    check_formals(sym_pair)
+    return env.make_child_frame(sym_pair, val_pair)
+    
     # END PROBLEM 15
 
 SPECIAL_FORMS = {
