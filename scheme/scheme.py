@@ -189,8 +189,6 @@ class LambdaProcedure(UserDefinedProcedure):
         """Make a frame that binds the formal parameters to ARGS, a Scheme list
         of values, for a lexically-scoped call evaluated in environment ENV."""
         # BEGIN PROBLEM 12
-        "*** REPLACE THIS LINE ***"
-
         return self.env.make_child_frame(self.formals,args)
         # END PROBLEM 12
 
@@ -337,7 +335,7 @@ def make_let_frame(bindings, env):
     if not scheme_listp(bindings):
         raise SchemeError('bad bindings list in let form')
     # BEGIN PROBLEM 15
-    "*** TO BE Check Again ***"
+    "*** To Be Checked Again ***"
     sym_pair, val_pair = nil, nil
     while bindings is not nil:
         check_form(bindings.first, 2, 2)
@@ -425,7 +423,8 @@ class MuProcedure(UserDefinedProcedure):
         self.body = body
 
     # BEGIN PROBLEM 16
-    "*** REPLACE THIS LINE ***"
+    def make_call_frame(self, args, env):
+            return env.make_child_frame(self.formals, args)
     # END PROBLEM 16
 
     def __str__(self):
@@ -441,7 +440,7 @@ def do_mu_form(expressions, env):
     formals = expressions.first
     check_formals(formals)
     # BEGIN PROBLEM 16
-    "*** REPLACE THIS LINE ***"
+    return  MuProcedure(formals, expressions.second)
     # END PROBLEM 16
 
 SPECIAL_FORMS['mu'] = do_mu_form
