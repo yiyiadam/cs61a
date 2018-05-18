@@ -53,7 +53,7 @@
 (define lambda? (check-special 'lambda))
 (define define? (check-special 'define))
 (define quoted? (check-special 'quote))
-(define let?    (check-special 'let))x
+(define let?    (check-special 'let))
 
 ;; Converts all let special forms in EXPR into equivalent forms using lambda
 (define (let-to-lambda expr)
