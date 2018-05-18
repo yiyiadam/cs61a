@@ -18,6 +18,11 @@
 (define (enumerate s)
   ; BEGIN PROBLEM 17
   'replace-this-line
+	(define (labeling_func i t)
+		(if (null? t) nil
+			(cons (cons i (cons (car t) nil)) 
+				  (labeling_func (+ i 1) (cdr t)))))
+	(labeling_func 0 s)
   )
   ; END PROBLEM 17
 
